@@ -68,6 +68,10 @@ main {
     border: unset !important;
 }
 
+.btn-primary:hover {
+    background-color: #ff6531 !important;
+}
+
 .bg-grey {
     background-image: unset;
     background-color: #F7F7F7;
@@ -81,6 +85,7 @@ main {
 
 #answer_list {
     width: 500px;
+    margin-bottom: 32px;
 }
 
 #answer_list > div {
@@ -89,11 +94,33 @@ main {
 }
 
 #answer_list > div:hover {
-    background-color: rgba(0,0,0,0.02) !important;
+    filter: brightness(0.95);
+}
+
+.number-questions {
+    font-size: 16px;
 }
 
 .answer-option {
     width: 40px;
     height: 40px;
     background-color: #D6D6D6;
+}
+
+.correct-answer {
+    background-color: #b7f799 !important;
+}
+
+.correct-answer-option {
+    background-color: #4DBF19 !important;
+    color: #ffffff;
+}
+
+.false-answer {
+    background-color: #FFA3A4 !important;
+}
+
+.false-answer-option {
+    background-color: #FA1814 !important;
+    color: #ffffff;
 }
