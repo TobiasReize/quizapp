@@ -17,18 +17,18 @@ let questions = [
     },
     {
         'question': 'Wie bindet man eine Website in eine Website ein?',
-        'answer-1': '<iframe>, <frame> and <frameset>',
-        'answer-2': '<iframe>',
-        'answer-3': '<frame>',
-        'answer-4': '<frameset>',
+        'answer-1': '&lt;iframe&gt;, &lt;frame&gt; and &lt;frameset&gt;',
+        'answer-2': '&lt;iframe&gt;',
+        'answer-3': '&lt;frame&gt;',
+        'answer-4': '&lt;frameset&gt;',
         'correct-answer': 2
     },
     {
         'question': 'Wie stellt man Text am BESTEN fett dar?',
-        'answer-1': '<strong>',
+        'answer-1': '&lt;strong&gt;',
         'answer-2': 'CSS nutzen',
-        'answer-3': '<bold>',
-        'answer-4': '<b>',
+        'answer-3': '&lt;bold&gt;',
+        'answer-4': '&lt;b&gt;',
         'correct-answer': 1
     },
     {
@@ -50,7 +50,7 @@ let questions = [
     {
         'question': 'Wie definiert man in JavaScript eine Variable?',
         'answer-1': 'let 100 = rate;',
-        'answer-2': '100 = let rate',
+        'answer-2': '100 = let rate;',
         'answer-3': 'rate = 100;',
         'answer-4': 'let rate = 100;',
         'correct-answer': 4
@@ -61,11 +61,6 @@ let currentQuestion = 0;
 let correctAnswers = 0;
 
 
-function init() {
-
-}
-
-
 function showQuestions() {
     let question = questions[currentQuestion];
     let content = document.getElementById('main_section');
@@ -73,7 +68,7 @@ function showQuestions() {
         <span class="question-headline">${question['question']}</span>
         <div id="answer_list" class="d-grid gap-3"></div>
         <div class="number-questions">Frage <strong>${currentQuestion + 1}</strong> von <strong>${questions.length}</strong></div>
-        <button id="next_question_button" type="button" class="btn btn-primary" disabled>Nächste Frage</button>
+        <button id="next_question_button" type="button" class="btn btn-primary" disabled onclick="nextQuestion()">Nächste Frage</button>
     `;
     content.classList.add('bg-grey');
 
@@ -101,6 +96,8 @@ function checkAnswer(answerSelection) {
         correctAnswerContainer.classList.add('correct-answer');
         correctAnswerOption.classList.add('correct-answer-option');
         nextQuestionButton.disabled = false;
+        correctAnswers++;
+        disableAnswers();
     } else {
         selectedAnswerContainer.classList.remove('bg-light');
         selectedAnswerContainer.classList.add('false-answer');
@@ -109,5 +106,19 @@ function checkAnswer(answerSelection) {
         correctAnswerContainer.classList.add('correct-answer');
         correctAnswerOption.classList.add('correct-answer-option');
         nextQuestionButton.disabled = false;
+        disableAnswers();
     }
+}
+
+
+function disableAnswers() {
+    for (let i = 0; i < 4; i++) {
+        document.getElementById(`answer_${i}`).onclick = null;
+    }
+}
+
+
+function nextQuestion() {
+    currentQuestion++;
+    showQuestions();
 }
