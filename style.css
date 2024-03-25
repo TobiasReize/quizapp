@@ -56,19 +56,16 @@ main {
     font-size: 24px;
 }
 
-.btn {
+#custom_button {
     position: absolute;
     right: 40px;
     bottom: 40px;
     padding: 4px 24px !important;
-}
-
-.btn-primary {
     background-color: #FF4D0F !important;
     border: unset !important;
 }
 
-.btn-primary:hover {
+#custom_button:hover {
     background-color: #ff6531 !important;
 }
 
@@ -123,4 +120,28 @@ main {
 .false-answer-option {
     background-color: #FA1814 !important;
     color: #ffffff;
+}
+
+.result-img {
+    height: 88px;
+}
+
+.font-style {
+    font-weight: 800;
+}
+
+.mg-tp-bt {
+    margin: 8px 0 32px 0;
+}
+
+#share_button {
+    padding: 4px 48px;
+    margin: 32px 0 8px 0;
+}
+
+#replay_button {
+    padding: 4px 48px;
+    color: #183CE8;
+    background-color: unset;
+    border: unset;
 }

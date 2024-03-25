@@ -68,7 +68,7 @@ function showQuestions() {
         <span class="question-headline">${question['question']}</span>
         <div id="answer_list" class="d-grid gap-3"></div>
         <div class="number-questions">Frage <strong>${currentQuestion + 1}</strong> von <strong>${questions.length}</strong></div>
-        <button id="next_question_button" type="button" class="btn btn-primary" disabled onclick="nextQuestion()">Nächste Frage</button>
+        <button id="custom_button" type="button" class="btn btn-primary" disabled onclick="nextQuestion()">Nächste Frage</button>
     `;
     content.classList.add('bg-grey');
 
@@ -88,9 +88,12 @@ function checkAnswer(answerSelection) {
     let correctAnswerNumber = questions[currentQuestion]['correct-answer'];
     let correctAnswerContainer = document.getElementById(`answer_${correctAnswerNumber - 1}`);
     let correctAnswerOption = document.getElementById(`answer_option_${correctAnswerNumber - 1}`);
+
     let selectedAnswerContainer = document.getElementById(`answer_${answerSelection - 1}`);
     let selectedAnswerOption = document.getElementById(`answer_option_${answerSelection - 1}`);
-    let nextQuestionButton = document.getElementById('next_question_button');
+
+    let nextQuestionButton = document.getElementById('custom_button');
+
     if (answerSelection == correctAnswerNumber) {
         correctAnswerContainer.classList.remove('bg-light');
         correctAnswerContainer.classList.add('correct-answer');
@@ -119,6 +122,21 @@ function disableAnswers() {
 
 
 function nextQuestion() {
-    currentQuestion++;
-    showQuestions();
+    if (currentQuestion + 1 == questions.length) {
+        let content = document.getElementById('main_section');
+        content.innerHTML = /*html*/ `
+            <img class="result-img" src="./Layout-dark/brain result.png" alt="result">
+            <span class="font-style mg-tp-bt">COMPLETE<br>HTML QUIZ</span>
+            <span class="font-style">YOUR SCORE   ${correctAnswers}/${questions.length}</span>
+            <button id="share_button" type="button" class="btn btn-primary">SHARE</button>
+            <button id="replay_button" type="button" class="btn btn-primary" onclick="location.reload()">REPLAY</button>
+        `;
+    } else if (currentQuestion + 1 == questions.length - 1) {
+        currentQuestion++;
+        showQuestions();
+        document.getElementById('custom_button').innerHTML = 'Resultat anzeigen';
+    } else {
+        currentQuestion++;
+        showQuestions();
+    }
 }
