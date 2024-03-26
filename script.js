@@ -8,7 +8,7 @@ let questions = [
         'correct-answer': 3
     },
     {
-        'question': 'Was bedeutet das HTML-tag <a>?',
+        'question': 'Was bedeutet das HTML-tag &lt;a&gt;?',
         'answer-1': 'Text fett',
         'answer-2': 'Container',
         'answer-3': 'Ein Link',
@@ -40,7 +40,7 @@ let questions = [
         'correct-answer': 1
     },
     {
-        'question': 'Wie wählst du alle Elemente vom Typ <a> mit dem Attribut title aus?',
+        'question': 'Wie wählst du alle Elemente vom Typ &lt;a&gt; mit dem Attribut title aus?',
         'answer-1': 'a[title] {...}',
         'answer-2': 'a > title {...}',
         'answer-3': 'a.title {...}',
@@ -64,14 +64,23 @@ let correctAnswers = 0;
 function showQuestions() {
     let question = questions[currentQuestion];
     let content = document.getElementById('main_section');
-    content.innerHTML = /*html*/ `
+    content.innerHTML = questionsLayoutHTML(question);
+    content.classList.add('bg-grey');
+    answersHTML(question);
+}
+
+
+function questionsLayoutHTML(question) {
+    return /*html*/ `
         <span class="question-headline">${question['question']}</span>
         <div id="answer_list" class="d-grid gap-3"></div>
         <div class="number-questions">Frage <strong>${currentQuestion + 1}</strong> von <strong>${questions.length}</strong></div>
         <button id="custom_button" type="button" class="btn btn-primary" disabled onclick="nextQuestion()">Nächste Frage</button>
     `;
-    content.classList.add('bg-grey');
+}
 
+
+function answersHTML(question) {
     for (let i = 0; i < 4; i++) {
         let answers = document.getElementById('answer_list');
         answers.innerHTML += /*html*/ `
@@ -88,29 +97,36 @@ function checkAnswer(answerSelection) {
     let correctAnswerNumber = questions[currentQuestion]['correct-answer'];
     let correctAnswerContainer = document.getElementById(`answer_${correctAnswerNumber - 1}`);
     let correctAnswerOption = document.getElementById(`answer_option_${correctAnswerNumber - 1}`);
-
     let selectedAnswerContainer = document.getElementById(`answer_${answerSelection - 1}`);
     let selectedAnswerOption = document.getElementById(`answer_option_${answerSelection - 1}`);
-
     let nextQuestionButton = document.getElementById('custom_button');
-
     if (answerSelection == correctAnswerNumber) {
-        correctAnswerContainer.classList.remove('bg-light');
-        correctAnswerContainer.classList.add('correct-answer');
-        correctAnswerOption.classList.add('correct-answer-option');
-        nextQuestionButton.disabled = false;
-        correctAnswers++;
-        disableAnswers();
+        answerIsCorrect(correctAnswerContainer, correctAnswerOption, nextQuestionButton);
     } else {
-        selectedAnswerContainer.classList.remove('bg-light');
-        selectedAnswerContainer.classList.add('false-answer');
-        selectedAnswerOption.classList.add('false-answer-option');
-        correctAnswerContainer.classList.remove('bg-light');
-        correctAnswerContainer.classList.add('correct-answer');
-        correctAnswerOption.classList.add('correct-answer-option');
-        nextQuestionButton.disabled = false;
-        disableAnswers();
+        answerIsFalse(selectedAnswerContainer, selectedAnswerOption, correctAnswerContainer, correctAnswerOption, nextQuestionButton);
     }
+}
+
+
+function answerIsCorrect(correctAnswerContainer, correctAnswerOption, nextQuestionButton) {
+    correctAnswerContainer.classList.remove('bg-light');
+    correctAnswerContainer.classList.add('correct-answer');
+    correctAnswerOption.classList.add('correct-answer-option');
+    nextQuestionButton.disabled = false;
+    correctAnswers++;
+    disableAnswers();
+}
+
+
+function answerIsFalse(selectedAnswerContainer, selectedAnswerOption, correctAnswerContainer, correctAnswerOption, nextQuestionButton) {
+    selectedAnswerContainer.classList.remove('bg-light');
+    selectedAnswerContainer.classList.add('false-answer');
+    selectedAnswerOption.classList.add('false-answer-option');
+    correctAnswerContainer.classList.remove('bg-light');
+    correctAnswerContainer.classList.add('correct-answer');
+    correctAnswerOption.classList.add('correct-answer-option');
+    nextQuestionButton.disabled = false;
+    disableAnswers();
 }
 
 
@@ -123,14 +139,7 @@ function disableAnswers() {
 
 function nextQuestion() {
     if (currentQuestion + 1 == questions.length) {
-        let content = document.getElementById('main_section');
-        content.innerHTML = /*html*/ `
-            <img class="result-img" src="./Layout-dark/brain result.png" alt="result">
-            <span class="font-style mg-tp-bt">COMPLETE<br>HTML QUIZ</span>
-            <span class="font-style">YOUR SCORE   ${correctAnswers}/${questions.length}</span>
-            <button id="share_button" type="button" class="btn btn-primary">SHARE</button>
-            <button id="replay_button" type="button" class="btn btn-primary" onclick="location.reload()">REPLAY</button>
-        `;
+        showResultHTML();
     } else if (currentQuestion + 1 == questions.length - 1) {
         currentQuestion++;
         showQuestions();
@@ -139,4 +148,16 @@ function nextQuestion() {
         currentQuestion++;
         showQuestions();
     }
+}
+
+
+function showResultHTML() {
+    let content = document.getElementById('main_section');
+    content.innerHTML = /*html*/ `
+        <img class="result-img" src="./Layout-dark/brain result.png" alt="result">
+        <span class="font-style mg-tp-bt">COMPLETE<br>HTML QUIZ</span>
+        <span class="font-style">YOUR SCORE   ${correctAnswers}/${questions.length}</span>
+        <button id="share_button" type="button" class="btn btn-primary">SHARE</button>
+        <button id="replay_button" type="button" class="btn btn-primary" onclick="location.reload()">REPLAY</button>
+    `;
 }
