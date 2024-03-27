@@ -130,6 +130,10 @@ main {
     font-weight: 800;
 }
 
+.font-color-orange {
+    color: #EB883C;
+}
+
 .mg-tp-bt {
     margin: 8px 0 32px 0;
 }
@@ -144,4 +148,50 @@ main {
     color: #183CE8;
     background-color: unset;
     border: unset;
+}
+
+@media(max-width: 1050px) {
+    .card {
+        margin: 0 8px;
+        width: 100%;
+    }
+}
+
+@media(max-width: 750px) {
+    .nav {
+        width: auto;
+    }
+
+    #answer_list {
+        width: 75%;
+    }
+
+    #custom_button {
+        right: 16px;
+        bottom: 16px;
+        padding: 4px 8px !important;
+        font-size: 16px;
+    }
+}
+
+@media(max-width: 500px) {
+    .nav {
+        display: none !important;
+    }
+
+    .question-headline {
+        font-size: 20px;
+    }
+
+    main {
+        padding: 0 8px;
+    }
+
+    #answer_list {
+        width: 100%;
+    }
+
+    #answer_list > div {
+        gap: 16px;
+    }
 }

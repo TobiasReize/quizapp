@@ -156,7 +156,7 @@ function showResultHTML() {
     content.innerHTML = /*html*/ `
         <img class="result-img" src="./Layout-dark/brain result.png" alt="result">
         <span class="font-style mg-tp-bt">COMPLETE<br>HTML QUIZ</span>
-        <span class="font-style">YOUR SCORE   ${correctAnswers}/${questions.length}</span>
+        <span class="font-style font-color-orange">YOUR SCORE   ${correctAnswers}/${questions.length}</span>
         <button id="share_button" type="button" class="btn btn-primary">SHARE</button>
         <button id="replay_button" type="button" class="btn btn-primary" onclick="location.reload()">REPLAY</button>
     `;
